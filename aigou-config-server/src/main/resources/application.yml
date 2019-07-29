@@ -1,0 +1,20 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:1000/eureka/
+  instance:
+    prefer-ip-address: true
+
+server:
+  port: 8000
+
+spring:
+  application:
+      name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/lwJDK/aigou-config-server.git
+          username: lwJDK
+          password: L520131452024w
