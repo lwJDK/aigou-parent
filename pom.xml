@@ -20,6 +20,7 @@
         <module>aigou-zuul</module>
         <module>aigou-basic-parent</module>
         <module>aigou-plat-parent</module>
+        <module>aigou-product-parent</module>
     </modules>
 
     <properties>

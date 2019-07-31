@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.li.mapper.BrandMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="org.li.domain.Brand">
+        <id column="id" property="id" />
+        <result column="createTime" property="createTime" />
+        <result column="updateTime" property="updateTime" />
+        <result column="name" property="name" />
+        <result column="englishName" property="englishName" />
+        <result column="firstLetter" property="firstLetter" />
+        <result column="description" property="description" />
+        <result column="product_type_id" property="productTypeId" />
+        <result column="sortIndex" property="sortIndex" />
+        <result column="logo" property="logo" />
+    </resultMap>
+
+
+    <resultMap id="BrandMap" type="org.li.domain.Brand">
+        <id column="id" property="id" />
+        <result column="createTime" property="createTime" />
+        <result column="updateTime" property="updateTime" />
+        <result column="name" property="name" />
+        <result column="englishName" property="englishName" />
+        <result column="firstLetter" property="firstLetter" />
+        <result column="description" property="description" />
+        <result column="product_type_id" property="productTypeId" />
+        <result column="sortIndex" property="sortIndex" />
+        <result column="logo" property="logo" />
+        <!--对象的映射-->
+        <result column="tid" property="productType.id"/>
+        <result column="tname" property="productType.name"/>
+        <!--<association property="productType" javaType="cn.itsource.aigou.domain.ProductType">
+            <id property="id" column="tid"/>
+            <result property="name" column="tname"/>
+        </association>-->
+    </resultMap>
+
+    <sql id="columns">
+        b.id,
+        b.createTime,
+        b.updateTime,
+        b.name,
+        b.englishName,
+        b.firstLetter,
+        b.description,
+        b.product_type_id,
+        b.sortIndex,
+        b.logo
+    </sql>
+
+    <!--公共的查询条件-->
+    <sql id="whereSql">
+        <where>
+            <if test="query.keyword!=null and query.keyword!=''">
+                and
+                ( b.name like concat('%',#{query.keyword},'%')
+                or
+                b.englishName like concat('%',#{query.keyword},'%')
+                or
+                pt.name like concat('%',#{query.keyword},'%')
+                )
+            </if>
+        </where>
+    </sql>
+
+    <select id="queryPage" resultMap="BrandMap">
+        SELECT
+        <include refid="columns"/>,pt.id tid,pt.name tname
+        FROM t_brand b
+        LEFT JOIN t_product_type pt ON b.product_type_id = pt.id
+        <include refid="whereSql"/>
+    </select>
+
+</mapper>

@@ -4,8 +4,8 @@ package org.li;
  * 请求返回结果的封装
  */
 public class AjaxResult {
-    private boolean success;
-    private String message;
+    private boolean success = true;
+    private String message = "操作成功!!";
     private Object obj;
     private Integer errorCode;
 

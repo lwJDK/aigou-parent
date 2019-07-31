@@ -13,6 +13,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>aigou-basic-util</module>
+        <module>aigou-basic-generator</module>
     </modules>
 
 

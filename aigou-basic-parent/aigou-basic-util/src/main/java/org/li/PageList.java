@@ -1,32 +1,33 @@
 package org.li;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class PageList<T> {
-    private Long total;
-    private ArrayList<T> rows = new ArrayList<>();
+    private long total = 0;
+    private List<T> rows = new ArrayList<>();
 
     public PageList() {
     }
 
-    public PageList(Long total, ArrayList<T> rows) {
+    public PageList(long total, List<T> rows) {
         this.total = total;
         this.rows = rows;
     }
 
-    public Long getTotal() {
+    public long getTotal() {
         return total;
     }
 
-    public void setTotal(Long total) {
+    public void setTotal(long total) {
         this.total = total;
     }
 
-    public ArrayList<T> getRows() {
+    public List<T> getRows() {
         return rows;
     }
 
-    public void setRows(ArrayList<T> rows) {
+    public void setRows(List<T> rows) {
         this.rows = rows;
     }
 }
