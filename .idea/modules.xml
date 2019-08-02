@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/aigou-basic-parent/aigou-basic-generator/aigou-basic-generator.iml" filepath="$PROJECT_DIR$/aigou-basic-parent/aigou-basic-generator/aigou-basic-generator.iml" />
       <module fileurl="file://$PROJECT_DIR$/aigou-basic-parent/aigou-basic-parent.iml" filepath="$PROJECT_DIR$/aigou-basic-parent/aigou-basic-parent.iml" />
       <module fileurl="file://$PROJECT_DIR$/aigou-basic-parent/aigou-basic-util/aigou-basic-util.iml" filepath="$PROJECT_DIR$/aigou-basic-parent/aigou-basic-util/aigou-basic-util.iml" />
+      <module fileurl="file://$PROJECT_DIR$/aigou-common-parent/aigou-common-parent.iml" filepath="$PROJECT_DIR$/aigou-common-parent/aigou-common-parent.iml" />
       <module fileurl="file://$PROJECT_DIR$/aigou-config-server/aigou-config-server.iml" filepath="$PROJECT_DIR$/aigou-config-server/aigou-config-server.iml" />
       <module fileurl="file://$PROJECT_DIR$/aigou-eureka/aigou-eureka.iml" filepath="$PROJECT_DIR$/aigou-eureka/aigou-eureka.iml" />
       <module fileurl="file://$PROJECT_DIR$/aigou-parent.iml" filepath="$PROJECT_DIR$/aigou-parent.iml" />
@@ -15,6 +16,8 @@
       <module fileurl="file://$PROJECT_DIR$/aigou-product-parent/aigou-product-parent.iml" filepath="$PROJECT_DIR$/aigou-product-parent/aigou-product-parent.iml" />
       <module fileurl="file://$PROJECT_DIR$/aigou-product-parent/aigou-product-service/aigou-product-service.iml" filepath="$PROJECT_DIR$/aigou-product-parent/aigou-product-service/aigou-product-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/aigou-zuul/aigou-zuul.iml" filepath="$PROJECT_DIR$/aigou-zuul/aigou-zuul.iml" />
+      <module fileurl="file://$PROJECT_DIR$/aigou-common-parent/common-interface/common-interface.iml" filepath="$PROJECT_DIR$/aigou-common-parent/common-interface/common-interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/aigou-common-parent/common-service/common-service.iml" filepath="$PROJECT_DIR$/aigou-common-parent/common-service/common-service.iml" />
     </modules>
   </component>
 </project>

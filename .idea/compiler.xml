@@ -15,12 +15,15 @@
         <module name="aigou-product-interface" />
         <module name="aigou-product-service" />
         <module name="aigou-zuul" />
+        <module name="common-interface" />
+        <module name="common-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="aigou-basic-generator" target="1.8" />
       <module name="aigou-basic-parent" target="1.8" />
       <module name="aigou-basic-util" target="1.8" />
+      <module name="aigou-common-parent" target="1.8" />
       <module name="aigou-config-server" target="1.8" />
       <module name="aigou-eureka" target="1.8" />
       <module name="aigou-parent" target="1.8" />
@@ -31,6 +34,8 @@
       <module name="aigou-product-parent" target="1.8" />
       <module name="aigou-product-service" target="1.8" />
       <module name="aigou-zuul" target="1.8" />
+      <module name="common-interface" target="1.8" />
+      <module name="common-service" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

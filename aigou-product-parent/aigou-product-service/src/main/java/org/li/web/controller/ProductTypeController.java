@@ -68,10 +68,17 @@ public class ProductTypeController {
     */
     @RequestMapping(value = "/list",method = RequestMethod.GET)
     public List<ProductType> list(){
-
         return productTypeService.loadTypeTree();
     }
 
+    /**
+     * 加载 新增/修改 品牌类型的数据
+     * @return
+     */
+    @RequestMapping(value = "/listType",method = RequestMethod.GET)
+    public List<ProductType> type(){
+        return productTypeService.loadTypeTree();
+    }
 
     /**
     * 分页查询数据
@@ -84,5 +91,20 @@ public class ProductTypeController {
     {
         IPage<ProductType> page = productTypeService.page(new Page<ProductType>(query.getPageNum(),query.getPageSize()));
         return new PageList<>(page.getTotal(),page.getRecords());
+    }
+
+    /**
+     * 生成主页面
+     */
+    @GetMapping("/genHomePage")
+    public AjaxResult genHomePage(){
+        try {
+            productTypeService.genHomePage();
+            return AjaxResult.getAjaxResult().setSuccess(true).setMessage("成功!!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return AjaxResult.getAjaxResult().setSuccess(false).setMessage("失败!!原因:"+e.getMessage());
+        }
+
     }
 }

@@ -4,8 +4,10 @@ import org.li.AjaxResult;
 import org.li.LetterUtil;
 import org.li.PageList;
 import org.li.domain.Brand;
+import org.li.domain.ProductType;
 import org.li.query.BrandQuery;
 import org.li.service.IBrandService;
+import org.li.service.IProductTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,8 +17,17 @@ import java.util.List;
 @RestController
 @RequestMapping("/brand")
 public class BrandController {
+    /**
+     * 品牌
+     */
     @Autowired
     public IBrandService brandService;
+
+    /**
+     * 商品类型
+     */
+    @Autowired
+    public IProductTypeService productTypeService;
 
     /**
     * 保存和修改公用的

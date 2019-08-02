@@ -20,4 +20,9 @@ public interface IProductTypeService extends IService<ProductType> {
      * @return
      */
     List<ProductType> loadTypeTree();
+
+    /**
+     * 生成静态化的主页面
+     */
+    void genHomePage();
 }

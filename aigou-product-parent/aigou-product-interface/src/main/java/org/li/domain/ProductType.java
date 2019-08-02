@@ -79,7 +79,7 @@ public class ProductType extends Model<ProductType> {
 
     //子类型
     @TableField(exist = false)
-    private List<ProductType> children = new ArrayList<>();
+    private List<ProductType> children;
 
     private Long typeTemplateId;
 

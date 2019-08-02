@@ -5,6 +5,9 @@
     <file url="file://$PROJECT_DIR$/aigou-basic-parent" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/aigou-basic-parent/aigou-basic-generator" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/aigou-basic-parent/aigou-basic-util" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/aigou-common-parent" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/aigou-common-parent/common-interface" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/aigou-common-parent/common-service" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/aigou-config-server" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/aigou-eureka" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/aigou-plat-parent" charset="UTF-8" />

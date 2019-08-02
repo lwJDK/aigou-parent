@@ -21,6 +21,7 @@
         <module>aigou-basic-parent</module>
         <module>aigou-plat-parent</module>
         <module>aigou-product-parent</module>
+        <module>aigou-common-parent</module>
     </modules>
 
     <properties>
