@@ -1,6 +1,6 @@
-package cn.itsource.aigou.query;
+package org.li.query;
 
-
+import org.li.BaseQuery;
 /**
  *
  * @author ${author}

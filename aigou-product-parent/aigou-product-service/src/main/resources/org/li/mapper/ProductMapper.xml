@@ -21,10 +21,65 @@
         <result column="viewCount" property="viewCount" />
         <result column="commentCount" property="commentCount" />
         <result column="commentScore" property="commentScore" />
-        <result column="viewProperties" property="viewProperties" />
         <result column="goodCommentCount" property="goodCommentCount" />
         <result column="commonCommentCount" property="commonCommentCount" />
         <result column="badCommentCount" property="badCommentCount" />
     </resultMap>
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="ProductResultMapper" type="org.li.domain.Product">
+        <id column="id" property="id" />
+        <result column="createTime" property="createTime" />
+        <result column="updateTime" property="updateTime" />
+        <result column="name" property="name" />
+        <result column="subName" property="subName" />
+        <result column="code" property="code" />
+        <result column="product_type_id" property="productTypeId" />
+        <result column="onSaleTime" property="onSaleTime" />
+        <result column="offSaleTime" property="offSaleTime" />
+        <result column="brand_id" property="brandId" />
+        <result column="state" property="state" />
+        <result column="maxPrice" property="maxPrice" />
+        <result column="minPrice" property="minPrice" />
+        <result column="saleCount" property="saleCount" />
+        <result column="viewCount" property="viewCount" />
+        <result column="commentCount" property="commentCount" />
+        <result column="commentScore" property="commentScore" />
+        <result column="goodCommentCount" property="goodCommentCount" />
+        <result column="commonCommentCount" property="commonCommentCount" />
+        <result column="badCommentCount" property="badCommentCount" />
+        <!--商品类型关联-->
+        <result column="pt_name" property="productType.name"/>
+        <result column="product_type_id" property="productType.id"/>
+        <!--商品品牌关联-->
+        <result column="b_name" property="brand.name"/>
+        <result column="brand_id" property="brand.id"/>
+    </resultMap>
+
+
+    <!--公共的查询条件-->
+    <sql id="whereSql">
+        <where>
+            <if test="query.keyword!=null and query.keyword!=''">
+                and
+                ( p.name like concat('%',#{query.keyword},'%')
+                or
+                p.subName like concat('%',#{query.keyword},'%')
+                or
+                pt.name like concat('%',#{query.keyword},'%')
+                or
+                b.name like concat('%',#{query.keyword},'%')
+                )
+            </if>
+        </where>
+    </sql>
+    <!--查询商品类型-->
+    <select id="queryPage" resultMap="ProductResultMapper">
+        select p.id,p.name,p.subName,p.onSaleTime,p.offSaleTime,p.state,pt.name pt_name,b.name b_name
+        from t_product p
+        left join t_product_type pt on p.product_type_id = pt.id
+        left join t_brand b on b.id = p.brand_id
+        <include refid="whereSql"/>
+    </select>
 
 </mapper>

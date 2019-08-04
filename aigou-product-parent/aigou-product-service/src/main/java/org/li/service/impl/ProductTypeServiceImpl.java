@@ -139,7 +139,6 @@ public class ProductTypeServiceImpl extends ServiceImpl<ProductTypeMapper, Produ
         //return loop();
     }
 
-
     /**
      * 循环方式
      * @return
@@ -154,7 +153,6 @@ public class ProductTypeServiceImpl extends ServiceImpl<ProductTypeMapper, Produ
         for (ProductType pt : productTypes) {
             map.put(pt.getId(), pt);
         }
-
         //循环
         for (ProductType productType : productTypes) {
             //一级类型

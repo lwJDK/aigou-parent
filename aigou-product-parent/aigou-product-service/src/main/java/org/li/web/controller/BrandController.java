@@ -76,13 +76,22 @@ public class BrandController {
         return brandService.getById(id);
     }
 
+    /**
+     * 加载类型数的数据
+     * @return
+     */
+    @RequestMapping(value = "/brandTypeList",method = RequestMethod.GET)
+    public List<Brand> list(){
+        return brandService.loadTypeTree();
+    }
+
 
     /**
     * 查看所有的员工信息
     * @return
     */
     @RequestMapping(value = "/list",method = RequestMethod.GET)
-    public List<Brand> list(){
+    public List<Brand> listType(){
 
         return brandService.list(null);
     }

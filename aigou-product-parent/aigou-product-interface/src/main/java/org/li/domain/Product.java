@@ -13,7 +13,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author solargen
- * @since 2019-07-30
+ * @since 2019-08-04
  */
 @TableName("t_product")
 public class Product extends Model<Product> {
@@ -105,12 +105,6 @@ public class Product extends Model<Product> {
     @TableField("commentScore")
     private Integer commentScore;
 
-    /**
-     * 显示属性摘要
-     */
-    @TableField("viewProperties")
-    private String viewProperties;
-
     @TableField("goodCommentCount")
     private Integer goodCommentCount;
 
@@ -120,6 +114,16 @@ public class Product extends Model<Product> {
     @TableField("badCommentCount")
     private Integer badCommentCount;
 
+    //商品类型
+    @TableField(exist = false)
+    private ProductType productType;
+
+    //商品品牌
+    @TableField(exist = false)
+    private Brand brand;
+
+    @TableField(exist = false)
+    private ProductExt productExt;
 
     public Long getId() {
         return id;
@@ -257,14 +261,6 @@ public class Product extends Model<Product> {
         this.commentScore = commentScore;
     }
 
-    public String getViewProperties() {
-        return viewProperties;
-    }
-
-    public void setViewProperties(String viewProperties) {
-        this.viewProperties = viewProperties;
-    }
-
     public Integer getGoodCommentCount() {
         return goodCommentCount;
     }
@@ -314,10 +310,33 @@ public class Product extends Model<Product> {
         ", viewCount=" + viewCount +
         ", commentCount=" + commentCount +
         ", commentScore=" + commentScore +
-        ", viewProperties=" + viewProperties +
         ", goodCommentCount=" + goodCommentCount +
         ", commonCommentCount=" + commonCommentCount +
         ", badCommentCount=" + badCommentCount +
         "}";
+    }
+
+    public ProductType getProductType() {
+        return productType;
+    }
+
+    public void setProductType(ProductType productType) {
+        this.productType = productType;
+    }
+
+    public Brand getBrand() {
+        return brand;
+    }
+
+    public void setBrand(Brand brand) {
+        this.brand = brand;
+    }
+
+    public ProductExt getProductExt() {
+        return productExt;
+    }
+
+    public void setProductExt(ProductExt productExt) {
+        this.productExt = productExt;
     }
 }

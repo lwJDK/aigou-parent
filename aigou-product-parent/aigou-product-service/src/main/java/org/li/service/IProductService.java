@@ -1,7 +1,9 @@
 package org.li.service;
 
-import org.li.domain.Product;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.li.PageList;
+import org.li.domain.Product;
+import org.li.query.ProductQuery;
 
 /**
  * <p>
@@ -9,8 +11,10 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author solargen
- * @since 2019-07-30
+ * @since 2019-08-04
  */
 public interface IProductService extends IService<Product> {
+
+    PageList<Product> queryPage(ProductQuery query);
 
 }

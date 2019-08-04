@@ -1,7 +1,13 @@
 package org.li.mapper;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.apache.ibatis.annotations.Param;
 import org.li.domain.Product;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.li.query.ProductQuery;
+
+import javax.management.Query;
 
 /**
  * <p>
@@ -9,8 +15,10 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author solargen
- * @since 2019-07-30
+ * @since 2019-08-04
  */
 public interface ProductMapper extends BaseMapper<Product> {
 
+    //查询商品类型
+    IPage<Product>  queryPage(Page page,@Param("query") ProductQuery query);
 }

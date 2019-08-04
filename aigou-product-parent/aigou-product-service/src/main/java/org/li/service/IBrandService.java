@@ -5,6 +5,8 @@ import org.li.domain.Brand;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.li.query.BrandQuery;
 
+import java.util.List;
+
 /**
  * <p>
  * 品牌信息 服务类
@@ -21,4 +23,6 @@ public interface IBrandService extends IService<Brand> {
      * @return
      */
     PageList<Brand> queryPage(BrandQuery query);
+
+    List<Brand> loadTypeTree();
 }
