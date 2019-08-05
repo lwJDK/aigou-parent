@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>
@@ -34,6 +36,12 @@ public class Specification extends Model<Specification> {
     @TableField("isSku")
     private Integer isSku;
 
+    @TableField(exist = false)
+    private String value;//显示属性的值
+
+    //sku属性  一个属性对应多个属性选项
+    @TableField(exist = false)
+    private List<String> options = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -80,5 +88,21 @@ public class Specification extends Model<Specification> {
         ", productTypeId=" + productTypeId +
         ", isSku=" + isSku +
         "}";
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public List<String> getOptions() {
+        return options;
+    }
+
+    public void setOptions(List<String> options) {
+        this.options = options;
     }
 }

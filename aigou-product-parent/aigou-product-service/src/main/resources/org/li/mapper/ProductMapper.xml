@@ -20,6 +20,7 @@
         <result column="saleCount" property="saleCount" />
         <result column="viewCount" property="viewCount" />
         <result column="commentCount" property="commentCount" />
+        <result column="medias" property="medias" />
         <result column="commentScore" property="commentScore" />
         <result column="goodCommentCount" property="goodCommentCount" />
         <result column="commonCommentCount" property="commonCommentCount" />
@@ -44,6 +45,7 @@
         <result column="saleCount" property="saleCount" />
         <result column="viewCount" property="viewCount" />
         <result column="commentCount" property="commentCount" />
+        <result column="medias" property="medias" />
         <result column="commentScore" property="commentScore" />
         <result column="goodCommentCount" property="goodCommentCount" />
         <result column="commonCommentCount" property="commonCommentCount" />

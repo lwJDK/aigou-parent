@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.li.domain.Brand;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.li.query.BrandQuery;
+import org.springframework.stereotype.Component;
 
 /**
  * <p>
@@ -15,6 +16,7 @@ import org.li.query.BrandQuery;
  * @author solargen
  * @since 2019-07-30
  */
+@Component
 public interface BrandMapper extends BaseMapper<Brand> {
     /**
      * 分页条件查询

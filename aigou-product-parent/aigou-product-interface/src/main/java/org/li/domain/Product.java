@@ -125,6 +125,9 @@ public class Product extends Model<Product> {
     @TableField(exist = false)
     private ProductExt productExt;
 
+    @TableField("medias")
+    private String medias;
+
     public Long getId() {
         return id;
     }
@@ -338,5 +341,13 @@ public class Product extends Model<Product> {
 
     public void setProductExt(ProductExt productExt) {
         this.productExt = productExt;
+    }
+
+    public String getMedias() {
+        return medias;
+    }
+
+    public void setMedias(String medias) {
+        this.medias = medias;
     }
 }

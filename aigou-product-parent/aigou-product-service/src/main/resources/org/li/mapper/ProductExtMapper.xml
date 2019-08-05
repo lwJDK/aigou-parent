@@ -12,4 +12,10 @@
         <result column="skuProperties" property="skuProperties" />
     </resultMap>
 
+
+    <update id="updateViewProperties">
+        update t_product_ext set viewProperties = #{viewProperties}
+        where productId = #{productId}
+    </update>
+
 </mapper>

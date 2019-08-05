@@ -39,16 +39,14 @@ public class BrandServiceImpl extends ServiceImpl<BrandMapper, Brand> implements
     //当前有事务在，则加入到当前事务中，当前没有事务，以非事务方式执行
     @Transactional(readOnly = true,propagation = Propagation.SUPPORTS)
     public PageList<Brand> queryPage(BrandQuery query) {
-        System.out.println(query.getPageNum());
-        System.out.println(query.getPageSize());
         //查询总数
         //查询当前页的数据
         Page<Brand> page = new Page<>(query.getPageNum(),query.getPageSize());
-        System.out.println(page);
-        System.out.println(query);
         IPage<Brand> ip = baseMapper.queryPage(page, query);
 
-
+        System.out.println("total=="+ip.getTotal());
+        System.out.println("size=="+ip.getSize());
+        System.out.println("records=="+ip.getRecords());
 
         //封装到PageList返回
         return new PageList<>(ip.getTotal(),ip.getRecords());

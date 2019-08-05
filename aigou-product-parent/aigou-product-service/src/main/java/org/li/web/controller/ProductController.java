@@ -1,5 +1,7 @@
 package org.li.web.controller;
 
+import org.li.domain.Specification;
+import org.li.domain.ViewProperties;
 import org.li.service.IProductService;
 import org.li.domain.Product;
 import org.li.query.ProductQuery;
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/product")
@@ -83,6 +86,47 @@ public class ProductController {
      */
     @RequestMapping(value = "/json", method = RequestMethod.POST)
     public PageList<Product> json(@RequestBody ProductQuery query) {
+        System.out.println(query);
         return productService.queryPage(query);
+    }
+
+
+    /**
+     * 显示商品的规格属性
+     * @param productId
+     * @return
+     */
+    @GetMapping("/getViewProperties")
+    public List<Specification> getViewProperties(@RequestParam("productId") Long productId){
+        return productService.getViewProperties(productId);
+    }
+
+
+    /**
+     * 显示商品的sku属性
+     * @param productId
+     * @return
+     */
+    @GetMapping("/getSkuProperties")
+    public List<Specification> getSkuProperties(@RequestParam("productId") Long productId){
+        return productService.getSkuProperties(productId);
+    }
+
+    /**
+     * 修改商品的显示属性
+     * @param para
+     * @return
+     */
+    @PostMapping("/updateViewProperties")
+    public AjaxResult updateViewProperties(@RequestBody Map<String,Object> para){
+        int productId = (Integer) para.get("productId");
+        String viewProperties = (String) para.get("viewProperties");
+        try {
+            productService.updateViewProperties(productId,viewProperties);
+            return AjaxResult.getAjaxResult().setSuccess(true).setMessage("修改成功!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return AjaxResult.getAjaxResult().setSuccess(false).setMessage("操作失败!" + e.getMessage());
+        }
     }
 }
