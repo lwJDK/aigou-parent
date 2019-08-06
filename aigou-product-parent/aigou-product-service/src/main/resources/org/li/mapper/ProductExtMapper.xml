@@ -17,5 +17,9 @@
         update t_product_ext set viewProperties = #{viewProperties}
         where productId = #{productId}
     </update>
+    <update id="updateSkuProperties">
+        update t_product_ext set skuProperties = #{skuProperties}
+        where productId = #{productId}
+    </update>
 
 </mapper>

@@ -6,12 +6,10 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.li.PageList;
-import org.li.domain.Product;
-import org.li.domain.ProductExt;
-import org.li.domain.Specification;
-import org.li.domain.ViewProperties;
+import org.li.domain.*;
 import org.li.mapper.ProductExtMapper;
 import org.li.mapper.ProductMapper;
+import org.li.mapper.SkuMapper;
 import org.li.mapper.SpecificationMapper;
 import org.li.query.ProductQuery;
 import org.li.service.IProductService;
@@ -19,8 +17,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -38,6 +38,9 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
 
     @Autowired
     private SpecificationMapper specificationMapper;
+
+    @Autowired
+    private SkuMapper skuMapper;
 
     @Override
     public PageList<Product> queryPage(ProductQuery query) {
@@ -93,6 +96,53 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
         List<Specification> specifications = specificationMapper.selectList(new QueryWrapper<Specification>()
                 .eq("product_type_id", productTypeId).eq("isSku", 1));
         return specifications;
+    }
+
+    /**
+     * sku属性的维护
+     * @param productId
+     * @param skus
+     * @param skuProperties
+     */
+    @Override
+    public void updateSkuProperties(long productId, List<Map<String, String>> skus, List<Map<String, String>> skuProperties) {
+        //修改商品详情表中的skuProperties
+        String skuPropertiesStr = JSON.toJSONString(skuProperties);
+        productExtMapper.updateSkuProperties(productId, skuPropertiesStr);
+        //修改sku
+        //(1)根据商品id删除所有的sku
+        skuMapper.delete(new QueryWrapper<Sku>().eq("productId", productId));
+        //(2)添加
+        List<Sku> skuList = toSkuList(productId,skus);//TODO
+        skuList.forEach(e -> {
+            skuMapper.insert(e);
+        });
+    }
+
+    private List<Sku> toSkuList(long productId, List<Map<String, String>> skus) {
+        List<Sku> list = new ArrayList<>();
+        Sku sku = null;
+        for (Map<String, String> map : skus) {
+            sku = new Sku();
+            sku.setCreateTime(new Date().getTime());
+            sku.setProductId(productId);
+
+            String skuName = "";
+            for (Map.Entry<String, String> entry : map.entrySet()) {
+                if(entry.getKey().equals("price") || entry.getKey().equals("store")
+                        || entry.getKey().equals("")){
+                    continue;
+                }
+                skuName+=entry.getValue();
+            }
+            sku.setSkuName(skuName);
+            sku.setPrice(Integer.parseInt(map.get("price")));
+            sku.setAvailableStock(Integer.parseInt(map.get("store")));
+            sku.setIndexs(map.get("indexs"));
+
+            list.add(sku);
+        }
+        return list;
     }
 
 

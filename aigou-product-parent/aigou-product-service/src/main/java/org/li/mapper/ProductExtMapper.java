@@ -17,4 +17,6 @@ import org.springframework.stereotype.Component;
 public interface ProductExtMapper extends BaseMapper<ProductExt> {
 
     void updateViewProperties(@Param("productId") long productId, @Param("viewProperties ") String viewProperties);
+
+    void updateSkuProperties(@Param("productId")long productId,@Param("skuProperties") String skuPropertiesStr);
 }
