@@ -8,6 +8,7 @@ import org.li.domain.ViewProperties;
 import org.li.query.ProductQuery;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -26,4 +27,6 @@ public interface IProductService extends IService<Product> {
     void updateViewProperties(long productId, String viewProperties);
 
     List<Specification> getSkuProperties(Long productId);
+
+    void updateSkuProperties(long productId, List<Map<String, String>> skus, List<Map<String, String>> skuProperties);
 }
