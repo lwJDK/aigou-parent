@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.li.query.ProductQuery;
 
 import javax.management.Query;
+import java.util.List;
 
 /**
  * <p>
@@ -21,4 +22,11 @@ public interface ProductMapper extends BaseMapper<Product> {
 
     //查询商品类型
     IPage<Product>  queryPage(Page page,@Param("query") ProductQuery query);
+
+    void onSale(@Param("ids") List<Long> idsLong,@Param("time") long time);
+
+    List<Product> selectByIds(List<Long> idsLong);
+
+    void offSale(@Param("ids") List<Long> idsLong,@Param("time") long time);
+
 }

@@ -4,13 +4,12 @@ package org.li.common;
 import org.li.AjaxResult;
 import org.li.common.domain.ProductDoc;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @FeignClient(value = "COMMON-SERVICE",fallback = ProductESFallback.class)
+@RequestMapping("/es")
 public interface ProductESClient {
 
     /**
@@ -34,8 +33,8 @@ public interface ProductESClient {
      * @param productId
      * @return
      */
-    @PostMapping("/delete")
-    public AjaxResult delete(@RequestParam Long productId);
+    @GetMapping("/delete")
+    public AjaxResult delete(@RequestParam("productId") Long productId);
 
     /**
      * 批量删除

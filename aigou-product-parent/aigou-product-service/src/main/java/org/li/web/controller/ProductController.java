@@ -1,5 +1,7 @@
 package org.li.web.controller;
 
+import jdk.nashorn.api.scripting.AbstractJSObject;
+import org.li.StrUtils;
 import org.li.domain.Specification;
 import org.li.domain.ViewProperties;
 import org.li.service.IProductService;
@@ -146,5 +148,41 @@ public class ProductController {
             return AjaxResult.getAjaxResult().setSuccess(false).setMessage("失败,原因:" + e.getMessage());
         }
 
+    }
+
+
+    /**
+     * 上架
+     * @param ids
+     * @return
+     */
+    @GetMapping("/onSale")
+    public AjaxResult onSale(String ids){
+        List<Long> idsLong = StrUtils.splitStr2LongArr(ids);
+        try {
+            productService.onSale(idsLong);
+            return AjaxResult.getAjaxResult().setSuccess(true).setMessage("上架成功!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return AjaxResult.getAjaxResult().setSuccess(false).setMessage("上架失败!,原因:"+e.getMessage());
+        }
+    }
+
+
+    /**
+     * 下架
+     * @param ids
+     * @return
+     */
+    @GetMapping("/offSale")
+    public AjaxResult offSale(String ids){
+        List<Long> idsLong = StrUtils.splitStr2LongArr(ids);
+        try {
+            productService.offSale(idsLong);
+            return AjaxResult.getAjaxResult().setSuccess(true).setMessage("下架成功!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return AjaxResult.getAjaxResult().setSuccess(false).setMessage("下架失败!,原因:"+e.getMessage());
+        }
     }
 }

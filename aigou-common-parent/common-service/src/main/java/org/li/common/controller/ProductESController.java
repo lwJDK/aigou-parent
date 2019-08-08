@@ -52,8 +52,8 @@ public class ProductESController {
      * @param productId
      * @return
      */
-    @PostMapping("/delete")
-    public AjaxResult delete(@RequestParam Long productId){
+    @GetMapping("/delete")
+    public AjaxResult delete(@RequestParam("productId") Long productId){
         try {
             productRepository.deleteById(productId);
             return AjaxResult.getAjaxResult().setSuccess(true).setMessage("成功!");

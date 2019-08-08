@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.li.PageList;
+import org.li.common.ProductESClient;
+import org.li.common.domain.ProductDoc;
 import org.li.domain.*;
 import org.li.mapper.ProductExtMapper;
 import org.li.mapper.ProductMapper;
@@ -41,6 +43,9 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
 
     @Autowired
     private SkuMapper skuMapper;
+
+    @Autowired
+    private ProductESClient productESClient;
 
     @Override
     public PageList<Product> queryPage(ProductQuery query) {
@@ -117,6 +122,100 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
         skuList.forEach(e -> {
             skuMapper.insert(e);
         });
+    }
+
+    /**
+     * 上架
+     * @param idsLong
+     */
+    @Override
+    @Transactional
+    public void onSale(List<Long> idsLong) {
+        //修改数据库的状态和上架时间
+        baseMapper.onSale(idsLong,new Date().getTime());
+        //根据id查询要上架的商品信息
+        List<Product> products = baseMapper.selectByIds(idsLong);
+        //调用公共服务的接口将商品信息保存到es中
+        productESClient.saveBath(products2Docs(products));
+        //
+    }
+
+    /**
+     * 下架
+     * @param idsLong
+     */
+    @Override
+    public void offSale(List<Long> idsLong) {
+        //修改数据库
+        baseMapper.offSale(idsLong,new Date().getTime());
+        //删除es
+        productESClient.deleteBatch(idsLong);
+    }
+
+    /**
+     * 集合转换
+     * @param products
+     * @return
+     */
+    private List<ProductDoc> products2Docs(List<Product> products) {
+        List<ProductDoc> docList = new ArrayList<>();
+        ProductDoc productDoc = null;
+        for (Product product : products) {
+            productDoc = product2Doc(product);
+            docList.add(productDoc);
+        }
+        return docList;
+    }
+
+    /**
+     * 对象转换
+     * @param product
+     * @return
+     */
+    private ProductDoc product2Doc(Product product) {
+        ProductDoc productDoc = new ProductDoc();
+        productDoc.setId(product.getId());
+
+        String all = "";
+        all+=product.getName()+" "
+                +product.getSubName()+" "
+                +product.getBrand().getName()+" "
+                +product.getProductType().getName();
+        productDoc.setAll(all);
+
+        productDoc.setBrandId(product.getBrandId());
+        productDoc.setProductTypeId(product.getProductTypeId());
+
+        //查询所有的sku，获取最大的价格和最小的价格
+        List<Sku> skus = skuMapper.selectList(new QueryWrapper<Sku>()
+        .eq("productId", product.getId()));
+        if(skus!=null && skus.size()>0){
+            Integer maxPrice = skus.get(0).getPrice();
+            Integer minPrice = skus.get(0).getPrice();
+            for (Sku sku : skus){
+                if(sku.getPrice()>=maxPrice){
+                    maxPrice = sku.getPrice();
+                }
+                if(sku.getPrice()<=minPrice){
+                    minPrice = sku.getPrice();
+                }
+            }
+            productDoc.setMaxPrice(maxPrice);
+            productDoc.setMinPrice(minPrice);
+        }
+
+        productDoc.setSaleCount(product.getSaleCount());
+        productDoc.setOnSaleTime(product.getOnSaleTime());
+        productDoc.setCommentCount(product.getCommentCount());
+        productDoc.setViewCount(product.getViewCount());
+        productDoc.setName(product.getName());
+        productDoc.setSubName(product.getSubName());
+        productDoc.setMedias(product.getMedias());
+
+        productDoc.setViewProperties(product.getProductExt().getViewProperties());
+        productDoc.setSkuProperties(product.getProductExt().getSkuProperties());
+
+        return productDoc;
     }
 
     private List<Sku> toSkuList(long productId, List<Map<String, String>> skus) {

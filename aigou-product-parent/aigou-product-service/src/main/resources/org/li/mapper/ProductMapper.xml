@@ -59,6 +59,22 @@
     </resultMap>
 
 
+    <!-- 通用查询映射结果 -->
+    <resultMap id="ProductDocMapper" type="org.li.domain.Product">
+        <result column="product_type_id" property="productTypeId" />
+        <result column="brand_id" property="brandId" />
+        <!--多对一关联映射-->
+        <result column="ptname" property="productType.name"/>
+        <result column="product_type_id" property="productType.id"/>
+
+        <result column="bname" property="brand.name"/>
+        <result column="brand_id" property="brand.id"/>
+
+        <result column="viewProperties" property="productExt.viewProperties"/>
+        <result column="skuProperties" property="productExt.skuProperties"/>
+    </resultMap>
+
+
     <!--公共的查询条件-->
     <sql id="whereSql">
         <where>
@@ -75,6 +91,25 @@
             </if>
         </where>
     </sql>
+
+    <!--上架-->
+    <update id="onSale">
+        update t_product set onSaleTime = #{time},state = 1
+        where id in
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </update>
+
+    <!--下架-->
+    <update id="offSale">
+        update t_product set offSaleTime = #{time},state = 0
+        where id in
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </update>
+
     <!--查询商品类型-->
     <select id="queryPage" resultMap="ProductResultMapper">
         select p.id,p.name,p.subName,p.onSaleTime,p.offSaleTime,p.state,pt.name pt_name,b.name b_name
@@ -82,6 +117,18 @@
         left join t_product_type pt on p.product_type_id = pt.id
         left join t_brand b on b.id = p.brand_id
         <include refid="whereSql"/>
+    </select>
+
+    <select id="selectByIds" resultMap="ProductDocMapper">
+        select p.*,pt.name ptname,b.name bname,pe.viewProperties,pe.skuProperties
+        from t_product p
+        left JOIN t_product_type pt on p.product_type_id = pt.id
+        left JOIN t_brand b on p.brand_id = b.id
+        left JOIN t_product_ext pe ON pe.productId = p.id
+        WHERE p.id IN
+        <foreach collection="list" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
     </select>
 
 </mapper>
